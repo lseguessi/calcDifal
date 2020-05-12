@@ -14,11 +14,10 @@ import javax.swing.JOptionPane;
  */
 public class index extends javax.swing.JFrame {
 
-    
-    double valorOperacao, totalProposta;
+    double valorOperacao;
     double alqPis;
     double valIcms, valPis, calcDifal, totalIRPJ, rjFCP;
-    
+
     /**
      * Creates new form index
      */
@@ -26,7 +25,7 @@ public class index extends javax.swing.JFrame {
         initComponents();
         ImageIcon img = new ImageIcon("C:\\Users\\Seguessi\\Documents\\NetBeansProjects\\calculoImp\\src\\img/logo.png");
         this.setIconImage(img.getImage());
-        
+
     }
 
     /**
@@ -71,6 +70,7 @@ public class index extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("PLANEJAMENTO TRIBUTÁRIO 2020 - ALPHENZ");
+        setResizable(false);
 
         jLabel1.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -310,12 +310,13 @@ public class index extends javax.swing.JFrame {
                     .addComponent(jLabel13)
                     .addComponent(lblFCP, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel11)
-                    .addComponent(lblTotal, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(jLabel14)
-                        .addComponent(lblCargaTributaria, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(lblCargaTributaria, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(jLabel11)
+                        .addComponent(lblTotal, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(27, 27, 27)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -329,117 +330,130 @@ public class index extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+
+        //Iniciar valores zerados.
+        valIcms = .0;
+        valPis = 0;
+        calcDifal = 0;
+        totalIRPJ = 0;
+        rjFCP = 0;
+
         //Retorna o valor do ComboBox com a sigla do estado.    
         String estado = String.valueOf(cbEstado.getSelectedItem());
-        
+
+        //Retorna opção de contribuinte ou não
         String contribuente = String.valueOf(cbContribuente.getSelectedItem());
-        
+
         //Retorna indice do ComboBox Estado
         int indiceUF = (cbEstado.getSelectedIndex());
+
+        if (txtValorOperacao.getText().isEmpty()) {
+            JOptionPane.showMessageDialog(null, "Preencha o valor da proposta", "Erro", JOptionPane.ERROR_MESSAGE);
+        }
         
-        if(txtValorOperacao.getText().isEmpty()){
-            JOptionPane.showMessageDialog(null, "Preencha o valor da proposta", "Erro",JOptionPane.ERROR_MESSAGE);
+        try {
+            Double.parseDouble(txtValorOperacao.getText());
+        } catch (NumberFormatException e) {
+            JOptionPane.showMessageDialog(null, "O campo Valor da Operação deve conter apenas números.", "Erro de preenchimento", 0, new ImageIcon("Imagens/cancelar.png"));
+           
         }
         valorOperacao = Double.parseDouble(txtValorOperacao.getText());
-        
+
         //Cálculo de ICMS e PIS / COFINS por estado selecionado.
-        if(estado == "SP"){
+        if (estado == "SP") {
             valIcms = valorOperacao * 0.12;
-            valPis = valorOperacao * (3.65 /100);
+            valPis = valorOperacao * (3.65 / 100);
             lblAlqICMS.setText("R$" + String.valueOf(valIcms).format("%.2f", valIcms));
             lblPis.setText("R$" + String.valueOf(valPis).format("%.2f", valPis));
             lblPorcDifal.setText("0");
             lblValDifal.setText("0");
             lblAliqICMS.setText("12%");
-        }
-        else{
+        } else {
             valIcms = valorOperacao * 0.04;
-            valPis = valorOperacao * (3.65 /100);
+            valPis = valorOperacao * (3.65 / 100);
             lblAlqICMS.setText("R$" + String.valueOf(valIcms).format("%.2f", valIcms));
             lblPis.setText("R$" + String.valueOf(valPis).format("%.2f", valPis));
             lblAliqICMS.setText("4%");
         }
-        
-        if(contribuente == "SIM"){
+
+        if (contribuente == "SIM") {
             //Não paga Difal
             lblPorcDifal.setText("0");
             lblValDifal.setText("0");
-        }
-        else{
+        } else {
             //Paga Difal
-            if(indiceUF == 1){
+            if (indiceUF == 1) {
                 lblPorcDifal.setText("8%");
                 calcDifal = valorOperacao * 0.08;
                 lblValDifal.setText("R$" + String.valueOf(calcDifal).format("%.2f", calcDifal));
-            }
-            else if(indiceUF >= 2 && indiceUF <=9){
+            } else if (indiceUF >= 2 && indiceUF <= 9) {
                 lblPorcDifal.setText("13%");
                 calcDifal = valorOperacao * 0.13;
                 lblValDifal.setText("R$" + String.valueOf(calcDifal).format("%.2f", calcDifal));
-            }else if(indiceUF == 10){
+            } else if (indiceUF == 10) {
                 lblPorcDifal.setText("13.5%");
                 calcDifal = valorOperacao * 0.135;
                 lblValDifal.setText("R$" + String.valueOf(calcDifal).format("%.2f", calcDifal));
-            }else if(indiceUF >= 11 && indiceUF <=26){
+            } else if (indiceUF >= 11 && indiceUF <= 26) {
                 lblPorcDifal.setText("14%");
                 calcDifal = valorOperacao * 0.14;
                 lblValDifal.setText("R$" + String.valueOf(calcDifal).format("%.2f", calcDifal));
-            }else{
+            } else {
                 lblPorcDifal.setText("0");
                 lblValDifal.setText("0");
             }
         }
-        
+
         double PresuncaoLucro = (valorOperacao * 0.08);
         double BaseCalcIRPJ = PresuncaoLucro * 0.15;
-        if(PresuncaoLucro >= 20000){
+        if (PresuncaoLucro >= 20000) {
             double AddIRPJ = (PresuncaoLucro - 20000) * 0.10;
             totalIRPJ = BaseCalcIRPJ + AddIRPJ;
             lblTotIRPJ.setText("R$" + String.valueOf(totalIRPJ).format("%.2f", totalIRPJ));
-        }else{
+        } else {
             lblTotIRPJ.setText("--");
         }
-        
+
         double PresuncaoLucroCSLL = (valorOperacao * 0.12) * 0.09;
         lblTotCLSS.setText("R$" + String.valueOf(PresuncaoLucroCSLL).format("%.2f", PresuncaoLucroCSLL));
-              
-        if(estado == "RJ"){
+
+        if (estado == "RJ") {
             rjFCP = valorOperacao * 0.02;
             lblFCP.setText(String.valueOf(rjFCP).format("%.2f", rjFCP));
-        }else if(estado == "AL" || estado == "PI"){
+        } else if (estado == "AL" || estado == "PI") {
             rjFCP = valorOperacao * 0.01;
             lblFCP.setText(String.valueOf(rjFCP).format("%.2f", rjFCP));
-        }else{
+        } else {
             lblFCP.setText("Desconsiderar");
         }
-        
+
         double total = valIcms + valPis + calcDifal + totalIRPJ + PresuncaoLucroCSLL + rjFCP;
-        
+
         lblTotal.setText("R$" + String.valueOf(total).format("%.2f", total));
         double cargaTribuataria = (total / valorOperacao) * 100;
         lblCargaTributaria.setText(String.valueOf(cargaTribuataria).format("%.2f", cargaTribuataria) + "%");
-        
-            
+
+
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
-        dispose();        // TODO add your handling code here:
+        System.exit(0);// TODO add your handling code here:
     }//GEN-LAST:event_jButton3ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-            txtValorOperacao.setText(""); 
-            lblValDifal.setText("R$ 0,00");
-             lblPorcDifal.setText("0,0%");
-             lblPis.setText("R$ 0,00");
-             lblAlqICMS.setText("R$ 0,00");
-             lblPis.setText("R$ 0,00");
-             lblAlqICMS.setText("0,0%");
-             lblTotIRPJ.setText("R$ 0,00");
-             lblTotCLSS.setText("R$ 0,00");
-             lblCargaTributaria.setText("0");
-             lblFCP.setText("R$ 0,00");
-             lblTotal.setText("R$0,00");
-             lblAliqICMS.setText("%");
+        txtValorOperacao.setText("");
+        lblValDifal.setText("R$ 0,00");
+        lblPorcDifal.setText("0,0%");
+        lblPis.setText("R$ 0,00");
+        lblAlqICMS.setText("R$ 0,00");
+        lblPis.setText("R$ 0,00");
+        lblAlqICMS.setText("0,0%");
+        lblTotIRPJ.setText("R$ 0,00");
+        lblTotCLSS.setText("R$ 0,00");
+        lblCargaTributaria.setText("0");
+        lblFCP.setText("R$ 0,00");
+        lblTotal.setText("R$0,00");
+        lblAliqICMS.setText("%");
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void lblValDifalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_lblValDifalActionPerformed
