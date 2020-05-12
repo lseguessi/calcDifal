@@ -17,7 +17,7 @@ public class index extends javax.swing.JFrame {
     
     double valorOperacao, totalProposta;
     double alqPis;
-    double valIcms, valPis, calcDifal, totalIRPJ;
+    double valIcms, valPis, calcDifal, totalIRPJ, rjFCP;
     
     /**
      * Creates new form index
@@ -64,6 +64,10 @@ public class index extends javax.swing.JFrame {
         lblTotIRPJ = new javax.swing.JFormattedTextField();
         lblTotCLSS = new javax.swing.JFormattedTextField();
         lblTotal = new javax.swing.JFormattedTextField();
+        jLabel13 = new javax.swing.JLabel();
+        lblFCP = new javax.swing.JFormattedTextField();
+        jLabel14 = new javax.swing.JLabel();
+        lblCargaTributaria = new javax.swing.JFormattedTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("PLANEJAMENTO TRIBUTÁRIO 2020 - ALPHENZ");
@@ -99,6 +103,7 @@ public class index extends javax.swing.JFrame {
         jLabel3.setText("VALOR DA OPERAÇÃO:");
 
         txtValorOperacao.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
+        txtValorOperacao.setToolTipText("Digite o valor da proposta sem \",\"");
 
         jLabel4.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         jLabel4.setText("ESTADO DESTINO:");
@@ -115,7 +120,7 @@ public class index extends javax.swing.JFrame {
         jLabel7.setText("3.65%");
         jLabel7.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
 
-        jLabel8.setText("CONTRIBUENTE:");
+        jLabel8.setText("CONTRIBUINTE:");
 
         cbContribuente.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "SIM", "NÃO" }));
 
@@ -160,6 +165,7 @@ public class index extends javax.swing.JFrame {
         });
 
         lblTotIRPJ.setEditable(false);
+        lblTotIRPJ.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
         lblTotIRPJ.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 lblTotIRPJActionPerformed(evt);
@@ -167,11 +173,33 @@ public class index extends javax.swing.JFrame {
         });
 
         lblTotCLSS.setEditable(false);
+        lblTotCLSS.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
 
         lblTotal.setEditable(false);
         lblTotal.setForeground(new java.awt.Color(255, 0, 0));
-        lblTotal.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("¤#,##0.00"))));
+        lblTotal.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(java.text.NumberFormat.getCurrencyInstance())));
         lblTotal.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
+        lblTotal.setToolTipText("Total de impostos");
+
+        jLabel13.setText("FCP:");
+
+        lblFCP.setEditable(false);
+        lblFCP.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(java.text.NumberFormat.getCurrencyInstance())));
+        lblFCP.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
+        lblFCP.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                lblFCPActionPerformed(evt);
+            }
+        });
+
+        jLabel14.setText("CARGA TRIBUTÁRIA");
+
+        lblCargaTributaria.setEditable(false);
+        lblCargaTributaria.setForeground(new java.awt.Color(255, 0, 0));
+        lblCargaTributaria.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(java.text.NumberFormat.getCurrencyInstance())));
+        lblCargaTributaria.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        lblCargaTributaria.setText("%");
+        lblCargaTributaria.setToolTipText("Total de impostos");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -181,69 +209,76 @@ public class index extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(jLabel5)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(lblAliqICMS, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(lblAlqICMS, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(jLabel6)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(lblPis))
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(jLabel3)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(txtValorOperacao, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(18, 18, 18)
-                                .addComponent(jLabel4)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(cbEstado, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(jLabel8)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(cbContribuente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGap(0, 0, Short.MAX_VALUE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(jButton2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 183, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(jLabel9)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(lblPorcDifal, javax.swing.GroupLayout.PREFERRED_SIZE, 72, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jLabel10)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(lblValDifal, javax.swing.GroupLayout.PREFERRED_SIZE, 123, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(jLabel11)
+                        .addGap(3, 3, 3)
+                        .addComponent(lblTotal, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jLabel2)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(lblTotIRPJ, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(jLabel11)
-                                .addGap(3, 3, 3)))
+                        .addComponent(jLabel14)
+                        .addGap(3, 3, 3)
+                        .addComponent(lblCargaTributaria, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
-                                .addGap(10, 10, 10)
+                                .addComponent(jLabel9)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(lblPorcDifal, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(jLabel10)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(lblValDifal, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(jLabel2)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(lblTotIRPJ, javax.swing.GroupLayout.PREFERRED_SIZE, 123, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addComponent(jLabel12)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(lblTotCLSS, javax.swing.GroupLayout.PREFERRED_SIZE, 102, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(lblTotal, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                                .addComponent(lblTotCLSS, javax.swing.GroupLayout.PREFERRED_SIZE, 123, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                .addGroup(layout.createSequentialGroup()
+                                    .addComponent(jLabel5)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                    .addComponent(lblAliqICMS, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                    .addComponent(lblAlqICMS, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                    .addComponent(jLabel6)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                    .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                    .addComponent(lblPis))
+                                .addGroup(layout.createSequentialGroup()
+                                    .addComponent(jLabel3)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                    .addComponent(txtValorOperacao, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addGap(18, 18, 18)
+                                    .addComponent(jLabel4)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                    .addComponent(cbEstado, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                    .addComponent(jLabel8)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                    .addComponent(cbContribuente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jLabel13)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(lblFCP, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(24, 24, 24)
-                .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, 26, Short.MAX_VALUE)
+                .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, 15, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel3)
@@ -261,23 +296,27 @@ public class index extends javax.swing.JFrame {
                     .addComponent(lblAlqICMS, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(lblPis, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                        .addComponent(lblPorcDifal, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jLabel9)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel12, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(lblTotCLSS, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(lblValDifal, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(jLabel10)
-                        .addComponent(jLabel2)
-                        .addComponent(lblTotIRPJ, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(29, 29, 29)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lblPorcDifal, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lblValDifal, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel10)
+                    .addComponent(jLabel2)
+                    .addComponent(lblTotIRPJ, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel12, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lblTotCLSS, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel9))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel13)
+                    .addComponent(lblFCP, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel11)
-                    .addComponent(lblTotal, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(29, 29, 29)
+                    .addComponent(lblTotal, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(jLabel14)
+                        .addComponent(lblCargaTributaria, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(27, 27, 27)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jButton2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -307,17 +346,17 @@ public class index extends javax.swing.JFrame {
         if(estado == "SP"){
             valIcms = valorOperacao * 0.12;
             valPis = valorOperacao * (3.65 /100);
-            lblAlqICMS.setText("R$" + String.valueOf(valIcms));
-            lblPis.setText("R$" + String.valueOf(valPis));
+            lblAlqICMS.setText("R$" + String.valueOf(valIcms).format("%.2f", valIcms));
+            lblPis.setText("R$" + String.valueOf(valPis).format("%.2f", valPis));
             lblPorcDifal.setText("0");
             lblValDifal.setText("0");
             lblAliqICMS.setText("12%");
         }
         else{
-            valIcms = valorOperacao * 0.4;
+            valIcms = valorOperacao * 0.04;
             valPis = valorOperacao * (3.65 /100);
-            lblAlqICMS.setText("R$" + String.valueOf(valIcms));
-            lblPis.setText("R$" + String.valueOf(valPis));
+            lblAlqICMS.setText("R$" + String.valueOf(valIcms).format("%.2f", valIcms));
+            lblPis.setText("R$" + String.valueOf(valPis).format("%.2f", valPis));
             lblAliqICMS.setText("4%");
         }
         
@@ -331,20 +370,20 @@ public class index extends javax.swing.JFrame {
             if(indiceUF == 1){
                 lblPorcDifal.setText("8%");
                 calcDifal = valorOperacao * 0.08;
-                lblValDifal.setText("R$" + String.valueOf(calcDifal));
+                lblValDifal.setText("R$" + String.valueOf(calcDifal).format("%.2f", calcDifal));
             }
             else if(indiceUF >= 2 && indiceUF <=9){
                 lblPorcDifal.setText("13%");
                 calcDifal = valorOperacao * 0.13;
-                lblValDifal.setText("R$" + String.valueOf(calcDifal));
+                lblValDifal.setText("R$" + String.valueOf(calcDifal).format("%.2f", calcDifal));
             }else if(indiceUF == 10){
                 lblPorcDifal.setText("13.5%");
                 calcDifal = valorOperacao * 0.135;
-                lblValDifal.setText("R$" + String.valueOf(calcDifal));
+                lblValDifal.setText("R$" + String.valueOf(calcDifal).format("%.2f", calcDifal));
             }else if(indiceUF >= 11 && indiceUF <=26){
                 lblPorcDifal.setText("14%");
                 calcDifal = valorOperacao * 0.14;
-                lblValDifal.setText("R$" + String.valueOf(calcDifal));
+                lblValDifal.setText("R$" + String.valueOf(calcDifal).format("%.2f", calcDifal));
             }else{
                 lblPorcDifal.setText("0");
                 lblValDifal.setText("0");
@@ -356,17 +395,30 @@ public class index extends javax.swing.JFrame {
         if(PresuncaoLucro >= 20000){
             double AddIRPJ = (PresuncaoLucro - 20000) * 0.10;
             totalIRPJ = BaseCalcIRPJ + AddIRPJ;
-            lblTotIRPJ.setText("R$" + String.valueOf(totalIRPJ));
+            lblTotIRPJ.setText("R$" + String.valueOf(totalIRPJ).format("%.2f", totalIRPJ));
         }else{
             lblTotIRPJ.setText("--");
         }
         
         double PresuncaoLucroCSLL = (valorOperacao * 0.12) * 0.09;
-        lblTotCLSS.setText("R$" + String.valueOf(PresuncaoLucroCSLL));
+        lblTotCLSS.setText("R$" + String.valueOf(PresuncaoLucroCSLL).format("%.2f", PresuncaoLucroCSLL));
+              
+        if(estado == "RJ"){
+            rjFCP = valorOperacao * 0.02;
+            lblFCP.setText(String.valueOf(rjFCP).format("%.2f", rjFCP));
+        }else if(estado == "AL" || estado == "PI"){
+            rjFCP = valorOperacao * 0.01;
+            lblFCP.setText(String.valueOf(rjFCP).format("%.2f", rjFCP));
+        }else{
+            lblFCP.setText("Desconsiderar");
+        }
         
-        double total = valIcms + valPis + calcDifal + totalIRPJ + PresuncaoLucroCSLL;
+        double total = valIcms + valPis + calcDifal + totalIRPJ + PresuncaoLucroCSLL + rjFCP;
         
-        lblTotal.setText(String.valueOf(total));
+        lblTotal.setText("R$" + String.valueOf(total).format("%.2f", total));
+        double cargaTribuataria = (total / valorOperacao) * 100;
+        lblCargaTributaria.setText(String.valueOf(cargaTribuataria).format("%.2f", cargaTribuataria) + "%");
+        
             
     }//GEN-LAST:event_jButton1ActionPerformed
 
@@ -375,8 +427,8 @@ public class index extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton3ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-             txtValorOperacao.setText("R$ 0,00");
-             lblValDifal.setText("R$ 0,00");
+            txtValorOperacao.setText(""); 
+            lblValDifal.setText("R$ 0,00");
              lblPorcDifal.setText("0,0%");
              lblPis.setText("R$ 0,00");
              lblAlqICMS.setText("R$ 0,00");
@@ -384,6 +436,10 @@ public class index extends javax.swing.JFrame {
              lblAlqICMS.setText("0,0%");
              lblTotIRPJ.setText("R$ 0,00");
              lblTotCLSS.setText("R$ 0,00");
+             lblCargaTributaria.setText("0");
+             lblFCP.setText("R$ 0,00");
+             lblTotal.setText("R$0,00");
+             lblAliqICMS.setText("%");
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void lblValDifalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_lblValDifalActionPerformed
@@ -393,6 +449,10 @@ public class index extends javax.swing.JFrame {
     private void lblTotIRPJActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_lblTotIRPJActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_lblTotIRPJActionPerformed
+
+    private void lblFCPActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_lblFCPActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_lblFCPActionPerformed
 
     /**
      * @param args the command line arguments
@@ -439,6 +499,8 @@ public class index extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
+    private javax.swing.JLabel jLabel13;
+    private javax.swing.JLabel jLabel14;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
@@ -449,6 +511,8 @@ public class index extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel9;
     private javax.swing.JLabel lblAliqICMS;
     private javax.swing.JFormattedTextField lblAlqICMS;
+    private javax.swing.JFormattedTextField lblCargaTributaria;
+    private javax.swing.JFormattedTextField lblFCP;
     private javax.swing.JFormattedTextField lblPis;
     private javax.swing.JLabel lblPorcDifal;
     private javax.swing.JFormattedTextField lblTotCLSS;
