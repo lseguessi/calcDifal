@@ -386,7 +386,7 @@ public class index extends javax.swing.JFrame {
                 lblPorcDifal.setText("8%");
                 calcDifal = valorOperacao * 0.08;
                 lblValDifal.setText("R$" + String.valueOf(calcDifal).format("%.2f", calcDifal));
-            } else if (indiceUF >= 2 && indiceUF <= 9) {
+            } else if (indiceUF >= 2 && indiceUF <= 9 || estado == "SC") {
                 lblPorcDifal.setText("13%");
                 calcDifal = valorOperacao * 0.13;
                 lblValDifal.setText("R$" + String.valueOf(calcDifal).format("%.2f", calcDifal));
